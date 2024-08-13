@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: klinik
+  namespace: klinik
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: klinik
+  template:
+    metadata:
+      labels:
+        app: klinik
+    spec:
+      containers:
+      - name: klinik
+        image: riqimaruq/klinik:14
+        ports:
+        - name: web
+          containerPort: 80
