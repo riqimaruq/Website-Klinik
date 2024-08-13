@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: klinik
-        image: riqimaruq/klinik:$RELEASE_NUMBER
+        image: riqimaruq/klinik:14
         ports:
         - name: web
           containerPort: 3000
