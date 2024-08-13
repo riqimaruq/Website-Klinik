@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: klinik
-        image: riqimaruq/klinik:14
+        image: riqimaruq/klinik:20
         ports:
         - name: web
           containerPort: 80
