@@ -16,6 +16,9 @@ spec:
       containers:
       - name: klinik
         image: riqimaruq/klinik:26
+        resources:
+          limits:
+            memory: "100Mi"
         ports:
         - name: web
           containerPort: 80
