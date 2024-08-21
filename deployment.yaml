@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: klinik
-        image: riqimaruq/klinik:20
+        image: riqimaruq/klinik:$BUILD_NUMBER
       automountServiceAccountToken: false
         resources:
         limits:
