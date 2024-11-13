@@ -6,7 +6,7 @@ metadata:
   labels:
     app: klinik
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name:  http
     port:  80
