@@ -15,10 +15,11 @@ spec:
     spec:
       containers:
       - name: klinik
-        image: riqimaruq/klinik:26
+        image: riqimaruq/belajariac:24
         resources:
           limits:
-            memory: "100Mi"
+            memory: 100Mi
         ports:
         - name: web
           containerPort: 80
+      automountServiceAccountToken: false
