@@ -15,11 +15,11 @@ spec:
     spec:
       containers:
       - name: klinik
-        image: riqimaruq/belajariac:$BUILD_NUMBER
-      automountServiceAccountToken: false
+        image: riqimaruq/belajariac:24
         resources:
-        limits:
-          memory: 100Mi
+          limits:
+            memory: 100Mi
         ports:
         - name: web
           containerPort: 80
+      automountServiceAccountToken: false
