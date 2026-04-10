@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: klinik
-  namespace: klinik
+  name: devsecops-app
 spec:
   replicas: 1
   selector:
-    matchLabels: 
-      app: klinik
+    matchLabels:
+      app: devsecops-app
   template:
     metadata:
       labels:
-        app: klinik
+        app: devsecops-app
     spec:
       containers:
-      - name: klinik
-        image: riqimaruq/belajariac:24
-        resources:
-          limits:
-            memory: 100Mi
+      - name: app
+        image: $REGISTRY/devsecops-app:${IMAGE_TAG}
+        imagePullPolicy: Always
         ports:
-        - name: web
-          containerPort: 80
-      automountServiceAccountToken: false
+        - containerPort: 8080
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
