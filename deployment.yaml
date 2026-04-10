@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: $REGISTRY/devsecops-app:${IMAGE_TAG}
+        image: localhost:5000/devsecops-app:${IMAGE_TAG}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
