@@ -1,3 +1,5 @@
-FROM nginx:latest
-COPY . /usr/share/nginx/html
-EXPOSE 3000
+FROM nginx:1.29-alpine
+
+COPY *.html /usr/share/nginx/html/
+
+EXPOSE 80
