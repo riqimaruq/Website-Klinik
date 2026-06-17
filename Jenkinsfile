@@ -33,34 +33,31 @@ pipeline {
             }
         }
 
-        stage('Update GitOps Repo') {
-            steps {
+       stage('Update GitOps Repo') {
+    steps {
 
-                sshagent(['github-ssh']) {
+        sshagent(['github-ssh']) {
 
-                    sh """
-                        rm -rf gitops
+            sh """
+                rm -rf gitops
 
-                        git clone ${GITOPS_REPO} gitops
+                git clone git@github.com:riqimaruq/website-klinik-gitops.git gitops
 
-                        cd gitops
+                cd gitops
 
-                        find . -name values.yaml
+                sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
 
-                        git config user.email "jenkins@local"
-                        git config user.name "Jenkins"
+                git config user.email "jenkins@local"
+                git config user.name "Jenkins"
 
-                        # SESUAIKAN PATH values.yaml NANTI
-                        sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
+                git add values.yaml
 
-                        git add values.yaml
+                git commit -m "Update image tag to ${IMAGE_TAG}" || true
 
-                        git commit -m "Update image tag to ${IMAGE_TAG}" || true
-
-                        git push origin main
-                    """
-                }
-            }
+                git push origin main
+            """
         }
+    }
+}
     }
 }
