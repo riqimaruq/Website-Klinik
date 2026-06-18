@@ -76,6 +76,7 @@ stage('Update GitOps Repo') {
 git clone git@github.com:riqimaruq/website-klinik-gitops.git gitops
 
 cd gitops
+git remote set-url origin git@github.com:riqimaruq/website-klinik-gitops.git
 
 git remote -v
 
