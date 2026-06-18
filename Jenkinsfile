@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "riqimaruq/website-klinik"
         IMAGE_TAG  = "${BUILD_NUMBER}"
 
-        GITOPS_REPO = "git@github.com:riqimaruq/website-klinik-gitops.git"
+        GITOPS_REPO = "https://github.com/riqimaruq/website-klinik-gitops.git"
     }
 
     stages {
