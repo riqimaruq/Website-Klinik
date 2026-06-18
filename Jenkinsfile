@@ -70,7 +70,8 @@ stage('Update GitOps Repo') {
 
             sh """
                 rm -rf gitops
-
+echo "SSH_KEY=$SSH_KEY"
+ls -lah "$SSH_KEY"
                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY -o StrictHostKeyChecking=no"
 
 git clone git@github.com:riqimaruq/website-klinik-gitops.git gitops
