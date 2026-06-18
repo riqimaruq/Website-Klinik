@@ -79,9 +79,6 @@ stage('Update GitOps Repo') {
 
                 find . -name values.yaml
 
-                git config user.email "jenkins@local"
-                git config user.name "Jenkins"
-
                 sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
 
                 git add values.yaml
