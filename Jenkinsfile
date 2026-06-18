@@ -81,7 +81,7 @@ git remote -v
 
 find . -name values.yaml
 
-sed -i "s/tag:.*/tag: \\"'"${IMAGE_TAG}"'\\"/" values.yaml
+sed -i "s/tag:.*/tag: \\""${IMAGE_TAG}"\\"/" values.yaml
 
 git config user.email "jenkins@local"
 git config user.name "Jenkins"
