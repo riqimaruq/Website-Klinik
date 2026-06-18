@@ -58,33 +58,40 @@ pipeline {
             }
         }
 stage('Update GitOps Repo') {
-            steps {
+    steps {
 
-                sshagent(['github-ssh']) {
+        withCredentials([
+            sshUserPrivateKey(
+                credentialsId: 'github',
+                keyFileVariable: 'SSH_KEY',
+                usernameVariable: 'SSH_USER'
+            )
+        ]) {
 
-                    sh """
-                        rm -rf gitops
+            sh """
+                rm -rf gitops
 
-                        git clone ${GITOPS_REPO} gitops
+                export GIT_SSH_COMMAND='ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no'
 
-                        cd gitops
+                git clone ${GITOPS_REPO} gitops
 
-                        find . -name values.yaml
+                cd gitops
 
-                        git config user.email "jenkins@local"
-                        git config user.name "Jenkins"
+                find . -name values.yaml
 
-                        # SESUAIKAN PATH values.yaml NANTI
-                        sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
+                git config user.email "jenkins@local"
+                git config user.name "Jenkins"
 
-                        git add values.yaml
+                sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
 
-                        git commit -m "Update image tag to ${IMAGE_TAG}" || true
+                git add values.yaml
 
-                        git push origin main
-                    """
-                }
-            }
+                git commit -m "Update image tag to ${IMAGE_TAG}" || true
+
+                git push origin main
+            """
         }
+    }
+}
     }
 }
