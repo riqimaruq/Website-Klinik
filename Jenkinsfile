@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "riqimaruq/website-klinik"
         IMAGE_TAG  = "${BUILD_NUMBER}"
 
-        GITOPS_REPO = "https://github.com/riqimaruq/website-klinik-gitops.git"
+       GITOPS_REPO = "git@github.com:riqimaruq/website-klinik-gitops.git"
     }
 
     stages {
@@ -71,21 +71,26 @@ stage('Update GitOps Repo') {
             sh """
                 rm -rf gitops
 
-                export GIT_SSH_COMMAND='ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no'
+                export GIT_SSH_COMMAND="ssh -i $SSH_KEY -o StrictHostKeyChecking=no"
 
-                git clone ${GITOPS_REPO} gitops
+git clone git@github.com:riqimaruq/website-klinik-gitops.git gitops
 
-                cd gitops
+cd gitops
 
-                find . -name values.yaml
+git remote -v
 
-                sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' values.yaml
+find . -name values.yaml
 
-                git add values.yaml
+sed -i "s/tag:.*/tag: \\"'"${IMAGE_TAG}"'\\"/" values.yaml
 
-                git commit -m "Update image tag to ${IMAGE_TAG}" || true
+git config user.email "jenkins@local"
+git config user.name "Jenkins"
 
-                git push origin main
+git add values.yaml
+
+git commit -m "Update image tag to ${IMAGE_TAG}" || true
+
+git push origin main
             """
         }
     }
